@@ -84,12 +84,12 @@ def depthFirstSearch(problem):
     """
     s = util.Stack() #Stack
     s.push((problem.getStartState(), [])) #Start node of the stack to store dfs nodes, has path in second index
-    v = set() #Visited set
+    v = [] #Visited list
 
     while not s.isEmpty(): #While not empty, iterate graph dfs
         cur = s.pop() #Current node being visited
         if cur[0] in v: continue #If already visited, continue to next
-        v.add(cur[0]) #Add to visited
+        v.append(cur[0]) #Add to visited
 
         if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
 
@@ -108,12 +108,12 @@ def breadthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     s = util.Queue() #Queue
     s.push((problem.getStartState(), [])) #Start node 
-    v = set() #Visited set
+    v = [] #Visited list
 
     while not s.isEmpty(): #While not empty, iterate graph dfs
         cur = s.pop() #Current node being visited
         if cur[0] in v: continue #If already visited, continue to next
-        v.add(cur[0]) #Add to visited
+        v.append(cur[0]) #Add to visited
 
         if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
 
@@ -132,12 +132,12 @@ def uniformCostSearch(problem):
     "*** YOUR CODE HERE ***"
     s = util.PriorityQueue() #Queue
     s.push((problem.getStartState(), []), 0) #Start node 
-    v = set() #Visited set
+    v = [] #Visited list
 
     while not s.isEmpty(): #While not empty, iterate graph dfs
         cur = s.pop() #Current node being visited
         if cur[0] in v: continue #If already visited, continue to next
-        v.add(cur[0]) #Add to visited
+        v.append(cur[0]) #Add to visited
 
         if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
 
@@ -162,12 +162,12 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     "*** YOUR CODE HERE ***"
     s = util.PriorityQueue() #Queue
     s.push((problem.getStartState(), []), 0) #Start node 
-    v = set() #Visited set
+    v = [] #Visited list
 
     while not s.isEmpty(): #While not empty, iterate graph dfs
         cur = s.pop() #Current node being visited
         if cur[0] in v: continue #If already visited, continue to next
-        v.add(cur[0]) #Add to visited
+        v.append(cur[0]) #Add to visited
 
         if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
 
