@@ -82,22 +82,24 @@ def depthFirstSearch(problem):
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
     """
-    s = util.Stack()
-    v = []
-    s.push((problem.getStartState(), []))
+    s = util.Stack() #Stack
+    s.push((problem.getStartState(), [])) #Start node of the stack to store dfs nodes, has path in second index
+    v = set() #Visited set
 
-    while not s.isEmpty():
-        temp = s.pop()
-        if problem.isGoalState(temp[0]):return temp[1]
-        successors = problem.getSuccessors(temp[0])
-        successors.sort(key= lambda x : x[0])
-        for moves in successors:
-            if moves[0] in v: continue
-            print (moves)
-            v.append(moves[0])
-            moveset = list(temp[1])
-            moveset.append(moves[1])
-            s.push((moves[0], moveset))
+    while not s.isEmpty(): #While not empty, iterate graph dfs
+        cur = s.pop() #Current node being visited
+        if cur[0] in v: continue #If already visited, continue to next
+        v.add(cur[0]) #Add to visited
+
+        if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
+
+        successors = problem.getSuccessors(cur[0]) #Gets the successors of the current visited dfs node
+        for nodes in successors: #Iteratively add next nodes in successors to the stack
+            if nodes[0] in v: continue
+            moveset = list(cur[1])
+            moveset.append(nodes[1])
+            s.push((nodes[0], moveset))
+            
     return None
 
 
