@@ -125,12 +125,30 @@ def breadthFirstSearch(problem):
             s.push((nodes[0], moveset))
             
     return None
-    util.raiseNotDefined()
-    util.raiseNotDefined()
+
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
+    s = util.PriorityQueue() #Queue
+    s.push((problem.getStartState(), []), 0) #Start node 
+    v = set() #Visited set
+
+    while not s.isEmpty(): #While not empty, iterate graph dfs
+        cur = s.pop() #Current node being visited
+        if cur[0] in v: continue #If already visited, continue to next
+        v.add(cur[0]) #Add to visited
+
+        if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
+
+        successors = problem.getSuccessors(cur[0]) #Gets the successors of the current visited dfs node
+        for nodes in successors: #Iteratively add next nodes in successors to the stack
+            if nodes[0] in v: continue
+            moveset = list(cur[1])
+            moveset.append(nodes[1])
+            s.push((nodes[0], moveset), problem.getCostOfActions(moveset))
+            
+    return None
     util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
