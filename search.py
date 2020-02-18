@@ -103,25 +103,29 @@ def depthFirstSearch(problem):
     return None
 
 
-#def dfsHelper(problem, state, visited, actionList = []):
-#    if(problem.isGoalState(state)): return actionList
-#    sucessors = problem.getSuccessors(state)
-#    if sucessors is []: return None
-#    aList = None
-#    for moves in sucessors:
-#        if moves[0] in visited: continue
-#        visited.append(moves[0])
-#        aList = [moves[1]]
-#        aList.append(dfsHelper(problem, moves[0], visited, aList))
-#    return aList
-
-        
-
-
-
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    s = util.Queue() #Queue
+    s.push((problem.getStartState(), [])) #Start node 
+    v = set() #Visited set
+
+    while not s.isEmpty(): #While not empty, iterate graph dfs
+        cur = s.pop() #Current node being visited
+        if cur[0] in v: continue #If already visited, continue to next
+        v.add(cur[0]) #Add to visited
+
+        if problem.isGoalState(cur[0]): return cur[1] #If current visited is goal state, return path 
+
+        successors = problem.getSuccessors(cur[0]) #Gets the successors of the current visited dfs node
+        for nodes in successors: #Iteratively add next nodes in successors to the stack
+            if nodes[0] in v: continue
+            moveset = list(cur[1])
+            moveset.append(nodes[1])
+            s.push((nodes[0], moveset))
+            
+    return None
+    util.raiseNotDefined()
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
