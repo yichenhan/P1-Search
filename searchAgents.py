@@ -387,7 +387,7 @@ def cornersHeuristic(state, problem):
         cost += curMin
         visited.append(curPos)
 
-    return cost # Default to trivial solution
+    return cost
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
@@ -481,7 +481,43 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
+    # Heuristic not using maze distance
+    # food = list(foodGrid.asList())
+
+    # mf = lambda x1, y1, x2, y2: abs(x1 - x2) + abs(y1 - y2) # Manhattan function
+
+    # if len(food) > 0:
+    #     corners = [float("inf"), float("inf"), 0, 0] #x1, y1, x2, y2
+    #     for f in food:
+    #         if(f[0] < corners[0]): corners[0] = f[0]
+    #         if(f[1] < corners[1]): corners[1] = f[1]
+    #         if(f[0] > corners[2]): corners[2] = f[0]
+    #         if(f[1] > corners[3]): corners[3] = f[1]
+    #     x1 = corners[0]
+    #     y1 = corners[1]
+    #     x2 = corners[2]
+    #     y2 = corners[3]
+    #     cornersFinal = ((x1, y1), (x1, y2), (x2, y1), (x2, y2))
+    #     mfMax = 0
+    #     for corner in cornersFinal:
+    #         mfMax = max(mfMax, mf(position[0], position[1], corner[0], corner[1]))
+    #     return mfMax
+    #     # sqSize = mf(*corners)
+    #     # return sqSize + mfMax
+    # else:
+    #     return 0
+
+    # Heuristic using maze distance
+    food = list(foodGrid.asList())
+    gameState = problem.startingGameState
+
+    if len(food) > 0:
+        mazeDistMax = 0
+        for f in food:
+            if mazeDistance(position, f, gameState) > mazeDistMax: mazeDistMax = mazeDistance(position, f, gameState)
+        return mazeDistMax
+    else:
+        return 0
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
